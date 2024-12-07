@@ -1,0 +1,52 @@
+<!-- activity_search_room.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Tiêu chí tìm kiếm: Địa chỉ -->
+    <EditText
+        android:id="@+id/etSearchLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Địa chỉ"
+        android:inputType="text"/>
+
+    <!-- Tiêu chí tìm kiếm: Giá thuê -->
+    <EditText
+        android:id="@+id/etSearchPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá thuê"
+        android:inputType="numberDecimal"/>
+
+    <!-- Tiêu chí tìm kiếm: Diện tích -->
+    <EditText
+        android:id="@+id/etSearchArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Diện tích (m²)"
+        android:inputType="numberDecimal"/>
+
+    <!-- Tiêu chí tìm kiếm: Tiện ích -->
+    <EditText
+        android:id="@+id/etSearchAmenities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tiện ích (ví dụ: điều hòa, tủ lạnh,...)"
+        android:inputType="text"/>
+
+    <!-- Nút tìm kiếm -->
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm"/>
+
+    <!-- Kết quả tìm kiếm -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

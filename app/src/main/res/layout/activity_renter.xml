@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Nút tìm kiếm phòng -->
+    <Button
+        android:id="@+id/btnSearchRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tìm Kiếm Phòng"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Nút danh sách phòng đã lưu -->
+    <Button
+        android:id="@+id/btnSavedRooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Danh Sách Phòng Đã Lưu"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- RecyclerView để hiển thị các phòng dưới dạng lưới -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRooms"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />  <!-- Đảm bảo RecyclerView chiếm không gian còn lại -->
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="top" />
+
+</LinearLayout>
