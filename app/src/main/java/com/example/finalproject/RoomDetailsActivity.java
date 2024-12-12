@@ -1,7 +1,9 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,5 +81,13 @@ public class RoomDetailsActivity extends AppCompatActivity {
             // No images
             tvImageCounter.setText("0/0");
         }
+
+        // Thêm nút xác nhận thông tin
+        Button btnVerification = findViewById(R.id.btnVerification);
+        btnVerification.setOnClickListener(v -> {
+            Intent intent = new Intent(RoomDetailsActivity.this, RoomVerificationActivity.class);
+            intent.putExtra("room", room);
+            startActivity(intent);
+        });
     }
 }
