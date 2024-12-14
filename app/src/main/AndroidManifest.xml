@@ -30,6 +30,10 @@
         <activity android:name=".ManageRoomsActivity"></activity>
         <activity android:name=".EditRoomActivity"></activity>
         <activity android:name=".SavedRoomsActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+
+        <activity android:name=".ChatListActivity"></activity>
+
         <activity android:name=".RoomDetailsActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

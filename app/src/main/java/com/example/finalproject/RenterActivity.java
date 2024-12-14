@@ -52,6 +52,15 @@ public class RenterActivity extends AppCompatActivity {
             Intent intent = new Intent(RenterActivity.this, SearchRoomActivity.class);
             startActivity(intent);
         });
+        Button btnChatList = findViewById(R.id.btnChatList);
+        btnChatList.setOnClickListener(v -> {
+            Intent intent = new Intent(RenterActivity.this, ChatListActivity.class);
+            intent.putExtra("currentUserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            startActivity(intent);
+
+        });
+
+
 
         // Initialize Firestore and RecyclerView
         db = FirebaseFirestore.getInstance();

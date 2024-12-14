@@ -82,20 +82,35 @@
                 android:id="@+id/tvRoomDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Room Description"
                 android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
 
             <!-- Room Price -->
+
             <TextView
                 android:id="@+id/tvRoomPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price: $100"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/tvOwnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/btnContactOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liên hệ chủ nhà"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

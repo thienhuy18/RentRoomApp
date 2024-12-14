@@ -69,10 +69,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
 
-        // Set room details (Name, Price, Address)
         holder.roomName.setText(room.getRoomName());
         holder.price.setText(room.getPrice());
         holder.address.setText(room.getAddress());
+        holder.ownerName.setText(room.getOwnerName());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, RoomDetailsActivity.class);
@@ -168,7 +168,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        public TextView roomName, price, address;
+        public TextView roomName, price, address,ownerName;
         public ImageView roomImage;
         public Button saveRoomButton;
 
@@ -182,6 +182,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             price = itemView.findViewById(R.id.tvPrice);
             address = itemView.findViewById(R.id.tvAddress);
             roomImage = itemView.findViewById(R.id.ivRoomImage);
+            ownerName = itemView.findViewById(R.id.ownerName);
             saveRoomButton = itemView.findViewById(R.id.btnSaveRoom);
 
 

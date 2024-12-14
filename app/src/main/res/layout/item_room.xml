@@ -42,7 +42,15 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:layout_marginTop="4dp"/>
+        <TextView
+            android:id="@+id/ownerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Owner Name"
+            android:textSize="14sp" />
+
     </LinearLayout>
+
 
     <Button
         android:id="@+id/btnSaveRoom"

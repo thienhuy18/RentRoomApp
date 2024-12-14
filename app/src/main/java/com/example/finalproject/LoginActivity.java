@@ -96,14 +96,13 @@ public class LoginActivity extends AppCompatActivity {
             // Chuyển đến màn hình tìm kiếm phòng (RenterActivity)
             Intent intent = new Intent(this, RenterActivity.class);
             startActivity(intent);
-            finish();  // Dừng Activity đăng nhập hiện tại
+            finish();
         } else {
             Toast.makeText(this, "Vai trò không hợp lệ", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    // Giao diện callback cho việc chọn vai trò
     interface OnRoleSelectedListener {
         void onRoleSelected(String role);
     }
