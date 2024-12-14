@@ -79,6 +79,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             intent.putExtra("room", room); // Pass Room object to the next activity
             context.startActivity(intent);
         });
+        holder.scheduleViewingButton.setOnClickListener(v -> {
+            // Open a Date Picker Activity
+            Intent intent = new Intent(context, DatePickerActivity.class);
+            intent.putExtra("roomId", room.getIdRoom());
+            context.startActivity(intent);
+        });
+
 
 
 
@@ -170,7 +177,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
         public TextView roomName, price, address,ownerName;
         public ImageView roomImage;
-        public Button saveRoomButton;
+        public Button saveRoomButton,scheduleViewingButton;
 
 
         public Button unsaveRoomButton;
@@ -184,6 +191,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             roomImage = itemView.findViewById(R.id.ivRoomImage);
             ownerName = itemView.findViewById(R.id.ownerName);
             saveRoomButton = itemView.findViewById(R.id.btnSaveRoom);
+            scheduleViewingButton = itemView.findViewById(R.id.btnScheduleViewing);
+
+
 
 
 
