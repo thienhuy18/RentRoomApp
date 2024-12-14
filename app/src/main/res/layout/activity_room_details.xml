@@ -110,6 +110,18 @@
                 android:text="Liên hệ chủ nhà"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal" />
+            <Button
+                android:id="@+id/btnVerification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Xác Nhận Thông Tin"
+                android:layout_marginTop="8dp"/>
+            <Button
+                android:id="@+id/btnDeposit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đặt Cọc"
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
 
     </ScrollView>

@@ -38,7 +38,7 @@ public class SearchRoomActivity extends AppCompatActivity {
 
         rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
 
-        roomAdapter = new RoomAdapter(new ArrayList<>());
+        roomAdapter = new RoomAdapter(new ArrayList<>(), this); // Pass context to adapter
         rvSearchResults.setAdapter(roomAdapter);
 
         btnSearch.setOnClickListener(v -> searchRooms());
@@ -80,7 +80,9 @@ public class SearchRoomActivity extends AppCompatActivity {
                     List<Room> roomList = new ArrayList<>();
                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         Room room = documentSnapshot.toObject(Room.class);
-                        roomList.add(room);
+                        if (room != null) {
+                            roomList.add(room);
+                        }
                     }
                     roomAdapter.setRoomList(roomList); // Cập nhật danh sách phòng cho Adapter
                 })

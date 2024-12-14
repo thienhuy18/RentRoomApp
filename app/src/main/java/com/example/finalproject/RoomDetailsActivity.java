@@ -81,6 +81,19 @@ public class RoomDetailsActivity extends AppCompatActivity {
                 }
             });
 
+            Button btnVerification = findViewById(R.id.btnVerification);
+            btnVerification.setOnClickListener(v -> {
+                Intent intent = new Intent(RoomDetailsActivity.this, RoomVerificationActivity.class);
+                intent.putExtra("room", room);
+                startActivity(intent);
+            });
+            Button btnDeposit = findViewById(R.id.btnDeposit);
+            btnDeposit.setOnClickListener(v -> {
+                Intent intent = new Intent(RoomDetailsActivity.this, DepositActivity.class);
+                intent.putExtra("room", room);
+                startActivity(intent);
+            });
+
             // Previous Button
             btnPrevious.setOnClickListener(v -> {
                 int currentItem = viewPagerImages.getCurrentItem();

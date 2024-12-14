@@ -47,7 +47,6 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        // Initialize views
         tvContactName = findViewById(R.id.tvContactName);
         recyclerViewChat = findViewById(R.id.recyclerViewChat);
         etMessageInput = findViewById(R.id.etMessageInput);
@@ -85,7 +84,20 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void loadChatHistory() {
+
+
+    private void fetchSenderName(String userId, OnNameFetchedListener listener) {
+        db.collection("users").document(userId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        String name = task.getResult().getString("name");
+                        listener.onNameFetched(name != null ? name : "Unknown User");
+                    } else {
+                        listener.onNameFetched("Unknown User");
+                    }
+                });
+    }private void loadChatHistory() {
         String chatId = getChatId(currentUserId, contactUserId);
 
         CollectionReference messagesRef = chatRef.document(chatId).collection("messages");
@@ -100,34 +112,58 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
 
-                        messageList.clear();
+                        // Tạo danh sách tạm thời để lưu tin nhắn
+                        List<Message> tempMessageList = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : value) {
                             Message message = doc.toObject(Message.class);
-
-                            // Fetch sender name from Firestore
-                            fetchSenderName(message.getSenderId(), senderName -> {
-                                message.setSenderName(senderName); // Add senderName to the message
-                                messageList.add(message);
-                                messageAdapter.notifyDataSetChanged();
-                                recyclerViewChat.scrollToPosition(messageList.size() - 1);
-                            });
+                            tempMessageList.add(message);
                         }
+
+                        // Lấy tên người gửi cho tất cả tin nhắn
+                        fetchSenderNames(tempMessageList, updatedMessageList -> {
+                            // Sắp xếp danh sách tin nhắn theo thời gian
+                            updatedMessageList.sort((m1, m2) -> m1.getTimestamp().compareTo(m2.getTimestamp()));
+
+                            // Cập nhật danh sách và giao diện
+                            messageList.clear();
+                            messageList.addAll(updatedMessageList);
+                            messageAdapter.notifyDataSetChanged();
+
+                            // Cuộn đến tin nhắn cuối cùng
+                            recyclerViewChat.scrollToPosition(messageList.size() - 1);
+                        });
                     }
                 });
     }
 
-    private void fetchSenderName(String userId, OnNameFetchedListener listener) {
-        db.collection("users").document(userId)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        String name = task.getResult().getString("name");
-                        listener.onNameFetched(name != null ? name : "Unknown User");
-                    } else {
-                        listener.onNameFetched("Unknown User");
-                    }
-                });
+    private void fetchSenderNames(List<Message> messages, OnMessagesProcessedListener listener) {
+        List<Message> processedMessages = new ArrayList<>();
+        for (Message message : messages) {
+            db.collection("users").document(message.getSenderId())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            String name = task.getResult().getString("name");
+                            message.setSenderName(name != null ? name : "Unknown User");
+                        } else {
+                            message.setSenderName("Unknown User");
+                        }
+
+                        // Thêm tin nhắn vào danh sách đã xử lý
+                        processedMessages.add(message);
+
+                        // Kiểm tra nếu đã xử lý hết tất cả tin nhắn
+                        if (processedMessages.size() == messages.size()) {
+                            listener.onMessagesProcessed(processedMessages);
+                        }
+                    });
+        }
     }
+
+    interface OnMessagesProcessedListener {
+        void onMessagesProcessed(List<Message> messages);
+    }
+
 
     interface OnNameFetchedListener {
         void onNameFetched(String name);

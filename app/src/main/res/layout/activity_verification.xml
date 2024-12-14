@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvVerificationStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác Nhận Thông Tin Phòng Trọ"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etOwnerVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Thông tin xác nhận từ chủ nhà"
+        android:lines="4"
+        android:gravity="top|start"/>
+
+    <EditText
+        android:id="@+id/etRenterVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Thông tin xác nhận từ người thuê"
+        android:lines="4"
+        android:gravity="top|start"/>
+
+    <Button
+        android:id="@+id/btnSubmitVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gửi Thông Tin Xác Nhận"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnApproveVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phê Duyệt"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

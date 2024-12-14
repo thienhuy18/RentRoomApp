@@ -37,5 +37,21 @@
         <activity android:name=".RoomDetailsActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".RoomVerificationActivity"
+            android:label="Room Verification"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity
+            android:name=".DepositActivity"
+            android:label="Room Deposit"
+            android:parentActivityName=".RoomDetailsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <!-- Optional: Allows the system to create a back button to parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RoomDetailsActivity" />
+        </activity>
     </application>
+
 </manifest>
