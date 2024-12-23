@@ -37,6 +37,13 @@
             android:layout_marginTop="4dp"/>
 
         <!-- Nút Sửa và Xóa -->
+        <Button
+            android:id="@+id/btnSeeRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quản lý lịch xem phòng"
+            android:layout_marginBottom="16dp"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -49,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sửa"/>
+
+
 
             <Button
                 android:id="@+id/btnDeleteRoom"

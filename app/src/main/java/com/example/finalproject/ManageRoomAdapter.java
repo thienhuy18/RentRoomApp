@@ -21,6 +21,8 @@ public class ManageRoomAdapter extends RecyclerView.Adapter<ManageRoomAdapter.Ma
     public interface OnRoomActionListener {
         void onEdit(Room room);
         void onDelete(Room room);
+        void onViewBookingHistory(Room room);  // Add this for the new button action
+
     }
 
     public ManageRoomAdapter(List<Room> roomList, Context context, OnRoomActionListener onRoomActionListener) {
@@ -54,6 +56,11 @@ public class ManageRoomAdapter extends RecyclerView.Adapter<ManageRoomAdapter.Ma
                 onRoomActionListener.onDelete(room);
             }
         });
+        holder.btnViewBookingHistory.setOnClickListener(v -> {
+            if (onRoomActionListener != null) {
+                onRoomActionListener.onViewBookingHistory(room);
+            }
+        });
     }
 
     @Override
@@ -64,15 +71,17 @@ public class ManageRoomAdapter extends RecyclerView.Adapter<ManageRoomAdapter.Ma
     public static class ManageRoomViewHolder extends RecyclerView.ViewHolder {
 
         public TextView roomName, price, address;
-        public Button btnEditRoom, btnDeleteRoom;
+        public Button btnEditRoom, btnDeleteRoom,btnViewBookingHistory;
 
-        public ManageRoomViewHolder(View itemView) {
+        public ManageRoomViewHolder(View    itemView) {
             super(itemView);
             roomName = itemView.findViewById(R.id.tvRoomName);
             price = itemView.findViewById(R.id.tvPrice);
             address = itemView.findViewById(R.id.tvAddress);
             btnEditRoom = itemView.findViewById(R.id.btnEditRoom);
             btnDeleteRoom = itemView.findViewById(R.id.btnDeleteRoom);
+            btnViewBookingHistory = itemView.findViewById(R.id.btnSeeRoom);  // New button
+
         }
     }
 }
