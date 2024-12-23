@@ -17,6 +17,10 @@ public class Room implements Serializable {
     private List<String> imageUrls;
     private List<String> amenities;
 
+
+
+
+
     public Room() {
 
     }
@@ -40,6 +44,7 @@ public class Room implements Serializable {
     public String getUserId() {
         return userId;
     }
+
 
 
 
@@ -120,4 +125,9 @@ public class Room implements Serializable {
     public void setAmenities(List<String> amenities) {
         this.amenities = amenities;
     }
+
+
+
+
+
 }

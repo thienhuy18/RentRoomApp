@@ -3,6 +3,7 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,13 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDetailsActivity extends AppCompatActivity {
@@ -24,6 +30,14 @@ public class RoomDetailsActivity extends AppCompatActivity {
     private TextView tvImageCounter, tvRoomAddress, tvRoomDescription, tvRoomPrice, tvOwnerName;
     private ImageButton btnPrevious, btnNext;
     private Button btnContactOwner;
+
+    private RecyclerView recyclerViewReviews;
+    private ReviewAdapter reviewAdapter;
+    private String roomId; // Add this variable to store the room ID
+
+    private List<Review> reviewList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +56,28 @@ public class RoomDetailsActivity extends AppCompatActivity {
         btnContactOwner = findViewById(R.id.btnContactOwner);
         tvOwnerName = findViewById(R.id.tvOwnerName);
 
+        recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
+        reviewList = new ArrayList<>();
+        reviewAdapter = new ReviewAdapter(reviewList);
+        recyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewReviews.setAdapter(reviewAdapter);
+
+
+
+
+
+
+
         // Retrieve the room and imageUrls
         Room room = (Room) getIntent().getSerializableExtra("room");
+
         List<String> imageUrls = room != null ? room.getImageUrls() : null;
+
+        if (room != null) {
+            roomId = room.getIdRoom(); // Extract the room ID and store it
+            fetchReviews(roomId); // Fetch reviews using the room ID
+        }
+
         if (room != null) {
             btnContactOwner.setOnClickListener(v -> {
                 String ownerName = room.getOwnerName();
@@ -56,6 +89,8 @@ public class RoomDetailsActivity extends AppCompatActivity {
             });
         }
 
+
+
         // Populate Room Information
         if (room != null) {
             tvRoomAddress.setText("Address: " + room.getAddress());
@@ -65,7 +100,6 @@ public class RoomDetailsActivity extends AppCompatActivity {
         }
 
         if (imageUrls != null && !imageUrls.isEmpty()) {
-            // Set up the ViewPager2
             ImagePagerAdapter adapter = new ImagePagerAdapter(imageUrls, this);
             viewPagerImages.setAdapter(adapter);
 
@@ -91,6 +125,13 @@ public class RoomDetailsActivity extends AppCompatActivity {
             btnDeposit.setOnClickListener(v -> {
                 Intent intent = new Intent(RoomDetailsActivity.this, DepositActivity.class);
                 intent.putExtra("room", room);
+                startActivity(intent);
+            });
+            Button btnReviewAndComment = findViewById(R.id.btnReviewAndComment);
+            btnReviewAndComment.setOnClickListener(v -> {
+                // Mở Activity đánh giá và bình luận
+                Intent intent = new Intent(RoomDetailsActivity.this, ReviewActivity.class);
+                intent.putExtra("room", room);  // Gửi thông tin phòng tới Activity Review
                 startActivity(intent);
             });
 
@@ -152,5 +193,47 @@ public class RoomDetailsActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Failed to fetch owner ID.", Toast.LENGTH_SHORT).show());
     }
+
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchReviews(roomId); // Refresh reviews when coming back
+    }
+
+
+
+
+
+    private void fetchReviews(String roomId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("rooms")
+                .document(roomId)
+                .collection("reviews")
+                .orderBy("timestamp", Query.Direction.DESCENDING) // Order reviews by most recent
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (querySnapshot.isEmpty()) {
+                        Toast.makeText(this, "No reviews found for this room.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        reviewList.clear();
+                        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                            Review review = document.toObject(Review.class);
+                            if (review != null) {
+                                reviewList.add(review);
+                            }
+                        }
+                        reviewAdapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load reviews: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 
 }

@@ -128,7 +128,7 @@ public class ChatListActivity extends AppCompatActivity {
         Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
         intent.putExtra("contactName", contact.getName());
         intent.putExtra("contactUserId", contact.getUserId());
-        intent.putExtra("currentUserId", currentUserId); // Pass the current user's ID
+        intent.putExtra("currentUserId", currentUserId);
         startActivity(intent);
     }
 }

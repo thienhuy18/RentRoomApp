@@ -90,7 +90,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
 
 
-
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users")
@@ -177,10 +176,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
         public TextView roomName, price, address,ownerName;
         public ImageView roomImage;
-        public Button saveRoomButton,scheduleViewingButton;
+        public Button saveRoomButton, scheduleViewingButton;
 
 
-        public Button unsaveRoomButton;
+
 
 
         public RoomViewHolder(View itemView) {
@@ -194,9 +193,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             scheduleViewingButton = itemView.findViewById(R.id.btnScheduleViewing);
 
 
-
-
-
         }
+
+
     }
 }

@@ -122,7 +122,25 @@
                 android:layout_height="wrap_content"
                 android:text="Đặt Cọc"
                 android:layout_marginTop="8dp"/>
+            <Button
+                android:id="@+id/btnReviewAndComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đánh giá và Bình luận"
+                android:layout_marginTop="16dp"
+                android:layout_centerHorizontal="true"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewReviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:scrollbars="vertical" />
+
+
         </LinearLayout>
+
 
     </ScrollView>
 </LinearLayout>

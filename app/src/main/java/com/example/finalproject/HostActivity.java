@@ -45,7 +45,7 @@ public class HostActivity extends AppCompatActivity {
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(HostActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Close current activity
+            finish();
         });
 
     }
