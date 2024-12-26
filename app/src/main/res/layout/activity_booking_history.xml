@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Title or Heading -->
     <TextView
         android:id="@+id/tvBookingHistoryTitle"
         android:layout_width="wrap_content"
@@ -15,7 +14,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
 
-    <!-- RecyclerView to display booking history -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookingHistory"
         android:layout_width="match_parent"

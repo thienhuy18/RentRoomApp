@@ -16,31 +16,67 @@
         tools:targetApi="31" >
 
     <activity android:name=".LoginActivity"
-        android:exported="true">
+        android:exported="true"
+        android:theme="@style/AppTheme.NoActionBar">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".HostActivity"></activity>
-        <activity android:name=".RenterActivity"></activity>
-        <activity android:name=".AddRoomActivity"></activity>
-        <activity android:name=".SearchRoomActivity"></activity>
-        <activity android:name=".ManageRoomsActivity"></activity>
-        <activity android:name=".EditRoomActivity"></activity>
-        <activity android:name=".SavedRoomsActivity"></activity>
-        <activity android:name=".ChatActivity"></activity>
 
-        <activity android:name=".ChatListActivity"></activity>
+        <activity android:name=".SignupActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity android:name=".HostActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".RenterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".AddRoomActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".SearchRoomActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".ManageRoomsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".EditRoomActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".SavedRoomsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity android:name=".ChatListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
         <activity android:name=".RoomDetailsActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+
         <activity
             android:name=".RoomVerificationActivity"
             android:label="Room Verification"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
 
         <activity
             android:name=".DepositActivity"
@@ -51,11 +87,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RoomDetailsActivity" />
         </activity>
-        <activity android:name=".ReviewActivity"></activity>
-        <activity android:name=".DatePickerActivity"></activity>
 
-        <activity android:name=".BookingHistoryActivity"></activity>
-        <activity android:name=".BookingSuccessActivity"></activity>
+        <activity android:name=".ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".DatePickerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity android:name=".BookingHistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".BookingSuccessActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

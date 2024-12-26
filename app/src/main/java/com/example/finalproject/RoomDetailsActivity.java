@@ -33,7 +33,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewReviews;
     private ReviewAdapter reviewAdapter;
-    private String roomId; // Add this variable to store the room ID
+    private String roomId;
 
     private List<Review> reviewList;
 
@@ -49,7 +49,6 @@ public class RoomDetailsActivity extends AppCompatActivity {
         btnPrevious = findViewById(R.id.btnPrevious);
         btnNext = findViewById(R.id.btnNext);
 
-        // Additional Room Information
         tvRoomAddress = findViewById(R.id.tvRoomAddress);
         tvRoomDescription = findViewById(R.id.tvRoomDescription);
         tvRoomPrice = findViewById(R.id.tvRoomPrice);
@@ -68,14 +67,13 @@ public class RoomDetailsActivity extends AppCompatActivity {
 
 
 
-        // Retrieve the room and imageUrls
         Room room = (Room) getIntent().getSerializableExtra("room");
 
         List<String> imageUrls = room != null ? room.getImageUrls() : null;
 
         if (room != null) {
-            roomId = room.getIdRoom(); // Extract the room ID and store it
-            fetchReviews(roomId); // Fetch reviews using the room ID
+            roomId = room.getIdRoom();
+            fetchReviews(roomId);
         }
 
         if (room != null) {
@@ -91,11 +89,12 @@ public class RoomDetailsActivity extends AppCompatActivity {
 
 
 
-        // Populate Room Information
         if (room != null) {
             tvRoomAddress.setText("Address: " + room.getAddress());
+            Log.d("RoomDetailsActivity", "Room Address: " + room.getAddress());
+
             tvRoomDescription.setText(room.getDescription());
-            tvRoomPrice.setText("Price: $" + room.getPrice());
+            tvRoomPrice.setText("Price: $" + room.getPrice()+"/Tháng");
             tvOwnerName.setText("Owner: " + room.getOwnerName());
         }
 
@@ -129,13 +128,11 @@ public class RoomDetailsActivity extends AppCompatActivity {
             });
             Button btnReviewAndComment = findViewById(R.id.btnReviewAndComment);
             btnReviewAndComment.setOnClickListener(v -> {
-                // Mở Activity đánh giá và bình luận
                 Intent intent = new Intent(RoomDetailsActivity.this, ReviewActivity.class);
                 intent.putExtra("room", room);  // Gửi thông tin phòng tới Activity Review
                 startActivity(intent);
             });
 
-            // Previous Button
             btnPrevious.setOnClickListener(v -> {
                 int currentItem = viewPagerImages.getCurrentItem();
                 if (currentItem > 0) {
@@ -143,7 +140,6 @@ public class RoomDetailsActivity extends AppCompatActivity {
                 }
             });
 
-            // Next Button
             btnNext.setOnClickListener(v -> {
                 int currentItem = viewPagerImages.getCurrentItem();
                 if (currentItem < imageUrls.size() - 1) {
@@ -151,7 +147,6 @@ public class RoomDetailsActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // No images
             tvImageCounter.setText("0/0");
         }
     }
@@ -160,7 +155,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
         if (currentUser != null) {
             return currentUser.getUid();
         } else {
-            return null; // Trả về null nếu người dùng chưa đăng nhập
+            return null;
         }
     }
 
@@ -178,10 +173,8 @@ public class RoomDetailsActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        // Lấy ownerId từ document ID
                         String ownerId = queryDocumentSnapshots.getDocuments().get(0).getId();
 
-                        // Chuyển hướng đến ChatActivity với đủ thông tin
                         Intent intent = new Intent(this, ChatActivity.class);
                         intent.putExtra("contactName", ownerName);
                         intent.putExtra("contactUserId", ownerId);
@@ -201,7 +194,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchReviews(roomId); // Refresh reviews when coming back
+        fetchReviews(roomId);
     }
 
 

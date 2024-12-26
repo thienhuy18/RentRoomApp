@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Contact Name -->
+
     <TextView
         android:id="@+id/tvContactName"
         android:layout_width="match_parent"
@@ -13,13 +14,13 @@
         android:text="Contact Name"
         android:textSize="20sp"
         android:padding="16dp"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:textColor="#000000"
-        android:background="#6200EE"
+        android:background="#FF4081"
         android:gravity="center"
         android:textColorHint="#FFFFFF" />
 
-    <!-- RecyclerView for Chat Messages -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChat"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
         android:padding="8dp"
         android:scrollbars="vertical" />
 
-    <!-- Message Input Area -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +37,6 @@
         android:padding="8dp"
         android:gravity="center_vertical">
 
-        <!-- Message Input Field -->
         <EditText
             android:id="@+id/etMessageInput"
             android:layout_width="0dp"
@@ -48,16 +48,18 @@
             android:background="@drawable/input_background"
             android:layout_marginEnd="8dp" />
 
-        <!-- Send Button -->
-        <Button
+
+        <ImageButton
             android:id="@+id/btnSendMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:backgroundTint="#6200EE"
-            android:textColor="#FFFFFF"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_send"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="Send Message"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            android:paddingEnd="16dp"
+            app:tint="#1E88E5" />
+
     </LinearLayout>
 
 </LinearLayout>

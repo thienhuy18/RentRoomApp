@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:textSize="16sp"/>
 
-    <!-- RecyclerView or TextView for displaying booked dates -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookedDates"
         android:layout_width="match_parent"

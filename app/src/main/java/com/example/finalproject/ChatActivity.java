@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +32,13 @@ public class ChatActivity extends AppCompatActivity {
     private TextView tvContactName;
     private RecyclerView recyclerViewChat;
     private EditText etMessageInput;
-    private Button btnSendMessage;
+    private ImageButton btnSendMessage;
     private List<Message> messageList;
     private MessageAdapter messageAdapter;
 
-    private String contactName; // The name of the contact
-    private String contactUserId; // The ID of the contact (e.g., Firebase UID)
-    private String currentUserId; // The ID of the current user
+    private String contactName;
+    private String contactUserId;
+    private String currentUserId;
 
     private FirebaseFirestore db;
     private CollectionReference chatRef;
@@ -52,28 +53,22 @@ public class ChatActivity extends AppCompatActivity {
         etMessageInput = findViewById(R.id.etMessageInput);
         btnSendMessage = findViewById(R.id.btnSendMessage);
 
-        // Get the contact info passed from the previous activity
         contactName = getIntent().getStringExtra("contactName");
         contactUserId = getIntent().getStringExtra("contactUserId");
         currentUserId = getIntent().getStringExtra("currentUserId");
 
-        // Set contact name in the UI
         tvContactName.setText(contactName);
 
-        // Initialize Firebase Firestore
         db = FirebaseFirestore.getInstance();
         chatRef = db.collection("chats");
 
-        // Initialize message list and adapter
         messageList = new ArrayList<>();
         messageAdapter = new MessageAdapter(messageList);
         recyclerViewChat.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewChat.setAdapter(messageAdapter);
 
-        // Load chat history
         loadChatHistory();
 
-        // Set up send message button
         btnSendMessage.setOnClickListener(v -> {
             String messageText = etMessageInput.getText().toString().trim();
             if (!TextUtils.isEmpty(messageText)) {
@@ -112,24 +107,19 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
 
-                        // Tạo danh sách tạm thời để lưu tin nhắn
                         List<Message> tempMessageList = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : value) {
                             Message message = doc.toObject(Message.class);
                             tempMessageList.add(message);
                         }
 
-                        // Lấy tên người gửi cho tất cả tin nhắn
                         fetchSenderNames(tempMessageList, updatedMessageList -> {
-                            // Sắp xếp danh sách tin nhắn theo thời gian
                             updatedMessageList.sort((m1, m2) -> m1.getTimestamp().compareTo(m2.getTimestamp()));
 
-                            // Cập nhật danh sách và giao diện
                             messageList.clear();
                             messageList.addAll(updatedMessageList);
                             messageAdapter.notifyDataSetChanged();
 
-                            // Cuộn đến tin nhắn cuối cùng
                             recyclerViewChat.scrollToPosition(messageList.size() - 1);
                         });
                     }
@@ -149,10 +139,8 @@ public class ChatActivity extends AppCompatActivity {
                             message.setSenderName("Unknown User");
                         }
 
-                        // Thêm tin nhắn vào danh sách đã xử lý
                         processedMessages.add(message);
 
-                        // Kiểm tra nếu đã xử lý hết tất cả tin nhắn
                         if (processedMessages.size() == messages.size()) {
                             listener.onMessagesProcessed(processedMessages);
                         }
@@ -170,18 +158,14 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String messageText) {
-        // Create a new message object
         Message message = new Message(currentUserId, contactUserId, messageText, Timestamp.now());
 
-        // Get a reference to the chat document between the current user and the contact
-        String chatId = getChatId(currentUserId, contactUserId); // A method to get a unique chat ID based on the users
+        String chatId = getChatId(currentUserId, contactUserId);
         CollectionReference messagesRef = chatRef.document(chatId).collection("messages");
 
-        // Ensure the chat document exists and has the userIds field
         chatRef.document(chatId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (!task.getResult().exists()) {
-                    // If the chat document does not exist, create it with userIds
                     chatRef.document(chatId).set(new Chat(currentUserId, contactUserId))
                             .addOnSuccessListener(aVoid -> Log.d("ChatActivity", "Chat document created with userIds"))
                             .addOnFailureListener(e -> Log.e("ChatActivity", "Error creating chat document", e));
@@ -191,7 +175,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Add the message to the messages subcollection
         messagesRef.add(message)
                 .addOnSuccessListener(documentReference -> {
                     Log.d("ChatActivity", "Message sent successfully!");
@@ -203,7 +186,6 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    // Chat model class to store userIds in the chat document
     public class Chat {
         private List<String> userIds;
 
@@ -223,7 +205,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private String getChatId(String userId1, String userId2) {
-        // Ensure the chat ID is the same regardless of the order of users
         return userId1.compareTo(userId2) < 0 ? userId1 + "_" + userId2 : userId2 + "_" + userId1;
     }
 }

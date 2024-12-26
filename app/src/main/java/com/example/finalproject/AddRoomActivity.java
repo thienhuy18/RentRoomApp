@@ -37,7 +37,7 @@ public class AddRoomActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Initialize Views
+
         etRoomName = findViewById(R.id.etRoomName);
         etPrice = findViewById(R.id.etPrice);
         etAddress = findViewById(R.id.etAddress);
@@ -46,14 +46,12 @@ public class AddRoomActivity extends AppCompatActivity {
         btnAddRoom = findViewById(R.id.btnAddRoom);
         btnSelectImages = findViewById(R.id.btnSelectImages);
 
-        // Set up the image selection button
         btnSelectImages.setOnClickListener(v -> selectImages());
 
-        // Add room button
+
         btnAddRoom.setOnClickListener(v -> addRoom());
     }
 
-    // Function to handle image selection
     private void selectImages() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -65,7 +63,7 @@ public class AddRoomActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            // Check if multiple images are selected
+
             if (data.getClipData() != null) {
                 int count = data.getClipData().getItemCount();
                 for (int i = 0; i < count; i++) {
@@ -76,14 +74,13 @@ public class AddRoomActivity extends AppCompatActivity {
             } else if (data.getData() != null) {
                 Uri imageUri = data.getData();
                 String savedImagePath = saveImageToInternalStorage(imageUri);
-                imageUris.add(Uri.parse(savedImagePath)); // Store saved path
+                imageUris.add(Uri.parse(savedImagePath));
             }
             Toast.makeText(this, "Chọn ảnh thành công", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-    // Add room function
     private void addRoom() {
         String roomName = etRoomName.getText().toString();
         String price = etPrice.getText().toString();
@@ -91,25 +88,22 @@ public class AddRoomActivity extends AppCompatActivity {
         String description = etDescription.getText().toString();
         String amenitiesText = etAmenities.getText().toString();
 
-        // Convert amenities to list
         List<String> amenities = new ArrayList<>();
         for (String amenity : amenitiesText.split(",")) {
             amenities.add(amenity.trim());
         }
 
         if (!roomName.isEmpty() && !price.isEmpty() && !address.isEmpty() && !imageUris.isEmpty()) {
-            // Convert imageUris to String paths
             List<String> imagePaths = new ArrayList<>();
             for (Uri uri : imageUris) {
                 imagePaths.add(uri.toString());
             }
 
-            // Generate a unique ID for the room
             String idRoom = db.collection("rooms").document().getId();
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
-                String userId = user.getUid(); // Use the user's unique ID to query Firestore
+                String userId = user.getUid();
 
                 db.collection("users").document(userId).get()
                         .addOnSuccessListener(documentSnapshot -> {
@@ -121,16 +115,14 @@ public class AddRoomActivity extends AppCompatActivity {
                                 ownerName = "Unknown Owner";
                             }
 
-                            // Create Room object with userId
                             Room room = new Room(userId, roomName, price, address, description, idRoom, ownerName, imagePaths, amenities);
 
-                            // Add Room to Firestore
                             db.collection("rooms").document(idRoom).set(room)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(this, "Thêm phòng thành công", Toast.LENGTH_SHORT).show();
                                         Intent resultIntent = new Intent();
                                         setResult(RESULT_OK, resultIntent);
-                                        finish(); // Go back to the previous screen
+                                        finish();
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(this, "Lỗi thêm phòng", Toast.LENGTH_SHORT).show();
@@ -149,7 +141,6 @@ public class AddRoomActivity extends AppCompatActivity {
     }
 
 
-    // Function to save an image to internal storage
     private String saveImageToInternalStorage(Uri imageUri) {
         try {
             InputStream inputStream = getContentResolver().openInputStream(imageUri);
@@ -170,7 +161,6 @@ public class AddRoomActivity extends AppCompatActivity {
             inputStream.close();
             outputStream.close();
 
-            // Return the path to the saved image
             return imageFile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();

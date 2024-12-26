@@ -3,6 +3,8 @@ package com.example.finalproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +12,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +27,41 @@ public class RenterActivity extends AppCompatActivity {
     private RoomAdapter roomAdapter;
     private List<Room> roomList;
     private FirebaseAuth mAuth;
-
     private FirebaseFirestore db;
+    private TextView tvWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renter);
 
-        Button btnLogout = findViewById(R.id.btnLogout);
+        tvWelcome = findViewById(R.id.tvWelcome);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            db.collection("users").document(userId).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String userName = document.getString("name");
+                        tvWelcome.setText("Xin chào, " + userName);
+                    } else {
+                        tvWelcome.setText("Xin chào, User");
+                    }
+                } else {
+                    tvWelcome.setText("Xin chào, User");
+                    Toast.makeText(RenterActivity.this, "Lỗi khi tải thông tin người dùng", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            tvWelcome.setText("Xin chào, User");
+        }
+
+        ImageButton btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
@@ -41,31 +69,31 @@ public class RenterActivity extends AppCompatActivity {
             startActivity(intent);
             finish(); // Close current activity
         });
-        // Initialize the search button
+
+        // Initialize the saved rooms button
         Button btnSavedRooms = findViewById(R.id.btnSavedRooms);
         btnSavedRooms.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, SavedRoomsActivity.class);
             startActivity(intent);
         });
+
+        // Initialize the search room button
         Button btnSearchRoom = findViewById(R.id.btnSearchRoom);
         btnSearchRoom.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, SearchRoomActivity.class);
             startActivity(intent);
         });
-        Button btnChatList = findViewById(R.id.btnChatList);
+
+        // Initialize the chat list button
+        ImageButton btnChatList = findViewById(R.id.btnChatList);
         btnChatList.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, ChatListActivity.class);
             intent.putExtra("currentUserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
             startActivity(intent);
-
         });
 
-
-
-        // Initialize Firestore and RecyclerView
-        db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.recyclerViewRooms);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // Grid layout with 2 columns
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         roomList = new ArrayList<>();
         roomAdapter = new RoomAdapter(roomList, this);
         recyclerView.setAdapter(roomAdapter);
@@ -95,9 +123,6 @@ public class RenterActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Reload the room data from Firestore to refresh UI
         loadRooms();
     }
-
-
 }

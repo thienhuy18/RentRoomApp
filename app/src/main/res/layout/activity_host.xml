@@ -1,35 +1,87 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Xin chào, User"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnPostRoom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đăng Tin Cho Thuê Phòng"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="140dp"
+        android:text="Đăng Tin Ngay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/btn_background"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
+
+
 
     <Button
         android:id="@+id/btnManageRooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quản Lý Phòng Đã Đăng"/>
-    <Button
+        android:layout_marginTop="24dp"
+        android:text="Quản Lý Phòng Đã Đăng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/btn_background"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/btnPostRoom" />
+
+    <ImageButton
         android:id="@+id/btnChatList"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="Chat"
+        android:src="@drawable/ic_chat1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tvChatLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xem lịch sử chat" />
+        android:layout_marginTop="4dp"
+        android:text="Liên Hệ"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/btnChatList"
+        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintStart_toStartOf="@id/btnChatList"
+        app:layout_constraintTop_toBottomOf="@id/btnChatList" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_margin="16dp"
-        android:textColor="@android:color/white"
-        android:layout_gravity="top" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="Logout"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

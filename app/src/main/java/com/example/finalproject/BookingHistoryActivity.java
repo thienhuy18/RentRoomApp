@@ -53,7 +53,6 @@ public class BookingHistoryActivity extends AppCompatActivity {
                             String userId = document.getString("userID"); // Fetch the userId
 
                             if (userId != null && !userId.isEmpty()) {
-                                // Fetch the user's name from the users collection using the userId
                                 db.collection("users")
                                         .document(userId)  // Access the user's document
                                         .get()

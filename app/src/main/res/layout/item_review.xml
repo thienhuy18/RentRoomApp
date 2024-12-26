@@ -4,6 +4,7 @@
     android:layout_margin="8dp"
     android:elevation="4dp">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -22,7 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
-            android:stepSize="0.5" />
+            android:stepSize="0.5"
+
+            />
 
         <TextView
             android:id="@+id/tvReviewText"
@@ -31,7 +34,6 @@
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
-        <!-- Added TextView for timestamp -->
         <TextView
             android:id="@+id/tvReviewTime"
             android:layout_width="wrap_content"

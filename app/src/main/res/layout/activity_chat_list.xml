@@ -5,27 +5,27 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- Title Bar -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#6200EE"
+        android:background="#FF4081"
         android:paddingVertical="12dp"
         android:paddingHorizontal="16dp"
-        android:gravity="center_vertical">
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tvChatListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chat List"
+            android:text="Liên Hệ"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <!-- RecyclerView for Chat List -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChatList"
         android:layout_width="match_parent"

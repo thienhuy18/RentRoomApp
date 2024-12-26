@@ -7,7 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gold">#FFD700</color> <!-- Gold color -->
 
+    <color name="colorAccent">#FF6200EE</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="gold">#FFD700</color>
+    <color name="pink">#FF4081</color>
 
+    FF4081
 </resources>

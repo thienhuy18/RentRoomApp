@@ -6,16 +6,34 @@
     android:padding="16dp"
     android:gravity="center">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Tạo Tin Mới"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
     <EditText
         android:id="@+id/etRoomName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background"
+
         android:hint="Tên phòng"
         android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/etPrice"
         android:layout_width="match_parent"
+        android:background="@drawable/edit_text_background"
+
         android:layout_height="wrap_content"
         android:hint="Giá thuê"
         android:inputType="numberDecimal"
@@ -23,6 +41,8 @@
 
     <EditText
         android:id="@+id/etAddress"
+        android:background="@drawable/edit_text_background"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Địa chỉ"
@@ -31,28 +51,35 @@
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
+        android:background="@drawable/edit_text_background"
+
         android:layout_height="wrap_content"
         android:hint="Mô tả"
         android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/btnSelectImages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chọn hình ảnh"
-        android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/etAmenities"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tiện ích (Nhập cách nhau bằng dấu phẩy)"
-        android:layout_marginBottom="16dp"/>
+        <EditText
+            android:id="@+id/etAmenities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <Button
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="Tiện ích (Nhập cách nhau bằng dấu phẩy)" />
+        <Button
+            android:id="@+id/btnSelectImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Chọn hình ảnh" />
+
+
+        <Button
         android:id="@+id/btnAddRoom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thêm phòng"
         android:layout_marginTop="16dp"/>
+</LinearLayout>
+
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,8 +70,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
 
-        holder.roomName.setText(room.getRoomName());
-        holder.price.setText(room.getPrice());
+        holder.roomDescription.setText(room.getDescription());
+        holder.price.setText(room.getPrice()+ "/Tháng");
         holder.address.setText(room.getAddress());
         holder.ownerName.setText(room.getOwnerName());
 
@@ -80,7 +81,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             context.startActivity(intent);
         });
         holder.scheduleViewingButton.setOnClickListener(v -> {
-            // Open a Date Picker Activity
             Intent intent = new Intent(context, DatePickerActivity.class);
             intent.putExtra("roomId", room.getIdRoom());
             context.startActivity(intent);
@@ -109,19 +109,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             saveRoomToFavorites(room, holder.saveRoomButton);
         });
 
-        // Construct the file path based on the image file name
         String imageFileName = room.getImageFileName();
         File file = new File(context.getFilesDir(), "images/" + imageFileName);
 
 
-        // Check if the file exists
         if (file.exists()) {
 
             try {
-                // Attempt to load the image with BitmapFactory
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 if (bitmap != null) {
-                    holder.roomImage.setImageBitmap(bitmap); // Set the Bitmap to ImageView
+                    holder.roomImage.setImageBitmap(bitmap);
                     Log.d("RoomAdapter", "Image loaded successfully with BitmapFactory.");
                 } else {
                     Log.e("RoomAdapter", "Failed to load image with BitmapFactory.");
@@ -133,7 +130,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         } else {
             Log.e("RoomAdapter", "Image file does not exist: " + file.getAbsolutePath());
-            holder.roomImage.setImageResource(R.drawable.placeholder_image); // Fallback image
+            holder.roomImage.setImageResource(R.drawable.placeholder_image); 
         }
 
 
@@ -144,7 +141,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
 
 
-    private void saveRoomToFavorites(Room room, Button saveRoomButton) {
+    private void saveRoomToFavorites(Room room, ImageButton saveRoomButton) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -174,17 +171,17 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        public TextView roomName, price, address,ownerName;
+        public TextView roomDescription, price, address,ownerName;
         public ImageView roomImage;
-        public Button saveRoomButton, scheduleViewingButton;
-
+        public Button  scheduleViewingButton;
+        public ImageButton saveRoomButton;
 
 
 
 
         public RoomViewHolder(View itemView) {
             super(itemView);
-            roomName = itemView.findViewById(R.id.tvRoomName);
+            roomDescription = itemView.findViewById(R.id.tvRoomDescription);
             price = itemView.findViewById(R.id.tvPrice);
             address = itemView.findViewById(R.id.tvAddress);
             roomImage = itemView.findViewById(R.id.ivRoomImage);

@@ -1,55 +1,90 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Chỉnh Sửa Tin"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/etRoomName"
+            android:background="@drawable/edit_text_background"
+
             android:layout_width="match_parent"
+            android:layout_marginBottom="16dp"
+
             android:layout_height="wrap_content"
             android:hint="Tên phòng" />
 
         <EditText
             android:id="@+id/etPrice"
+            android:background="@drawable/edit_text_background"
+
             android:layout_width="match_parent"
+            android:layout_marginBottom="16dp"
+
+
             android:layout_height="wrap_content"
             android:hint="Giá thuê"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/etAddress"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Địa chỉ" />
 
         <EditText
             android:id="@+id/etDescription"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mô tả" />
 
         <EditText
             android:id="@+id/etAmenities"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tiện ích (ngăn cách bằng dấu phẩy)" />
 
         <Button
             android:id="@+id/btnSelectImages"
+            android:layout_marginBottom="16dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn ảnh" />
 
         <Button
             android:id="@+id/btnUpdateRoom"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Cập nhật phòng" />
     </LinearLayout>
-</ScrollView>
+    </LinearLayout>

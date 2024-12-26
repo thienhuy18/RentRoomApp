@@ -43,14 +43,14 @@ public class SavedRoomsAdapter extends RecyclerView.Adapter<SavedRoomsAdapter.Sa
     public void onBindViewHolder(@NonNull SavedRoomViewHolder holder, int position) {
         Room room = savedRoomList.get(position);
 
-        holder.roomName.setText(room.getRoomName());
-        holder.price.setText(room.getPrice());
+        holder.roomDescription.setText(room.getDescription());
+        holder.price.setText(room.getPrice()+"/Tháng");
         holder.address.setText(room.getAddress());
 
         loadImage(holder, room);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, RoomDetailsActivity.class);
-            intent.putExtra("room", room); // Pass Room object to the next activity
+            intent.putExtra("room", room);
             context.startActivity(intent);
         });
 
@@ -102,13 +102,13 @@ public class SavedRoomsAdapter extends RecyclerView.Adapter<SavedRoomsAdapter.Sa
     }
 
     public static class SavedRoomViewHolder extends RecyclerView.ViewHolder {
-        public TextView roomName, price, address;
+        public TextView roomDescription, price, address;
         public ImageView roomImage;
         public Button unsaveRoomButton;
 
         public SavedRoomViewHolder(View itemView) {
             super(itemView);
-            roomName = itemView.findViewById(R.id.tvRoomName);
+            roomDescription = itemView.findViewById(R.id.tvRoomDescription);
             price = itemView.findViewById(R.id.tvPrice);
             address = itemView.findViewById(R.id.tvAddress);
             roomImage = itemView.findViewById(R.id.ivRoomImage);

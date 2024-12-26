@@ -1,8 +1,8 @@
 package com.example.finalproject;
 
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,13 +37,7 @@ public class SignupActivity extends AppCompatActivity {
             RadioButton selectedRole = findViewById(selectedRoleId);
             String role = selectedRole != null ? selectedRole.getText().toString() : "";
 
-            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || role.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (!password.equals(confirmPassword)) {
-                Toast.makeText(this, "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show();
+            if (!isValidInput(email, name, password, confirmPassword, role)) {
                 return;
             }
 
@@ -53,7 +47,6 @@ public class SignupActivity extends AppCompatActivity {
                             String userId = mAuth.getCurrentUser().getUid();
                             HashMap<String, Object> userData = new HashMap<>();
                             userData.put("name", name);
-                            userData.put("pass", password);
                             userData.put("email", email);
                             userData.put("role", role);
 
@@ -61,15 +54,42 @@ public class SignupActivity extends AppCompatActivity {
                                     .set(userData)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                                        // Chuyển hướng về màn hình đăng nhập
                                         startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                                         finish();
                                     })
-                                    .addOnFailureListener(e -> Toast.makeText(this, "Lỗi lưu thông tin", Toast.LENGTH_SHORT).show());
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(this, "Lỗi lưu thông tin", Toast.LENGTH_SHORT).show()
+                                    );
                         } else {
                             Toast.makeText(this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                         }
                     });
         });
     }
+
+    private boolean isValidInput(String email, String name, String password, String confirmPassword, String role) {
+        if (email.isEmpty() || name.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || role.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        if (password.length() < 6) {
+            Toast.makeText(this, "Mật khẩu phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
 }

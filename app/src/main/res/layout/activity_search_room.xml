@@ -1,52 +1,66 @@
-<!-- activity_search_room.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Tiêu chí tìm kiếm: Địa chỉ -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tìm Kiếm Phòng"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"/>
+
     <EditText
         android:id="@+id/etSearchLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_background"
         android:hint="Địa chỉ"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:layout_marginBottom="16dp"/>
 
-    <!-- Tiêu chí tìm kiếm: Giá thuê -->
     <EditText
         android:id="@+id/etSearchPrice"
         android:layout_width="match_parent"
+        android:background="@drawable/edit_text_background"
         android:layout_height="wrap_content"
         android:hint="Giá thuê"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp"/>
 
-    <!-- Tiêu chí tìm kiếm: Diện tích -->
     <EditText
         android:id="@+id/etSearchArea"
+        android:background="@drawable/edit_text_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Diện tích (m²)"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp"/>
 
-    <!-- Tiêu chí tìm kiếm: Tiện ích -->
     <EditText
         android:id="@+id/etSearchAmenities"
+        android:background="@drawable/edit_text_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tiện ích (ví dụ: điều hòa, tủ lạnh,...)"
-        android:inputType="text"/>
+        android:hint="Tiện ích "
+        android:inputType="text"
+        android:layout_marginBottom="16dp"/>
 
-    <!-- Nút tìm kiếm -->
     <Button
         android:id="@+id/btnSearch"
+        android:background="@drawable/btn_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tìm kiếm"/>
+        android:textColor="@android:color/white"
 
-    <!-- Kết quả tìm kiếm -->
+        android:text="Tìm kiếm"
+        android:layout_marginBottom="24dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearchResults"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="340dp" />
 </LinearLayout>
