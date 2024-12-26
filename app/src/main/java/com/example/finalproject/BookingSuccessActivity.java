@@ -17,12 +17,10 @@ public class BookingSuccessActivity extends AppCompatActivity {
 
         tvBookingInfo = findViewById(R.id.tvBookingInfo);
 
-        // Retrieve the data passed from DatePickerActivity
         Intent intent = getIntent();
         String bookedDate = intent.getStringExtra("bookedDate");
 
 
-        // Display booking info
         tvBookingInfo.setText("Room booked for: " + bookedDate );
 
 

@@ -42,28 +42,27 @@ public class BookingHistoryActivity extends AppCompatActivity {
 
     private void fetchBookingHistory() {
         db.collection("rooms")
-                .document(roomId)  // Use the roomId that you're currently working with
+                .document(roomId)
                 .collection("bookings")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        bookingDatesList.clear();  // Clear the list before adding new data
+                        bookingDatesList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String bookingDate = document.getId(); // The document ID (bookingDate)
-                            String userId = document.getString("userID"); // Fetch the userId
+                            String bookingDate = document.getId();
+                            String userId = document.getString("userID");
 
                             if (userId != null && !userId.isEmpty()) {
                                 db.collection("users")
-                                        .document(userId)  // Access the user's document
+                                        .document(userId)
                                         .get()
                                         .addOnCompleteListener(userTask -> {
                                             if (userTask.isSuccessful()) {
                                                 DocumentSnapshot userDocument = userTask.getResult();
                                                 if (userDocument.exists()) {
-                                                    String userName = userDocument.getString("name");  // Assuming 'name' field exists
+                                                    String userName = userDocument.getString("name");
 
                                                     if (userName != null && !userName.isEmpty()) {
-                                                        // If userName is found, display the booking date with the userName
                                                         bookingDatesList.add("Booking Date: " + bookingDate + " | User: " + userName);
                                                     } else {
                                                         Log.d("BookingHistory", "Missing userName for userId: " + userId);
@@ -72,7 +71,6 @@ public class BookingHistoryActivity extends AppCompatActivity {
                                             } else {
                                                 Log.d("BookingHistory", "Error fetching user data for userId: " + userId);
                                             }
-                                            // Notify the adapter after all user data is fetched
                                             bookingHistoryAdapter.notifyDataSetChanged();
                                         });
                             } else {

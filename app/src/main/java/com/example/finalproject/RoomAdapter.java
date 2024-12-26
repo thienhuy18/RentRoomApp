@@ -61,7 +61,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_room, parent, false);  // Layout cho từng phòng
+                .inflate(R.layout.item_room, parent, false);
         return new RoomViewHolder(itemView);
     }
 
@@ -77,7 +77,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, RoomDetailsActivity.class);
-            intent.putExtra("room", room); // Pass Room object to the next activity
+            intent.putExtra("room", room);
             context.startActivity(intent);
         });
         holder.scheduleViewingButton.setOnClickListener(v -> {
@@ -99,9 +99,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
-                        holder.saveRoomButton.setVisibility(View.GONE); // Hide button if room is saved
+                        holder.saveRoomButton.setVisibility(View.GONE);
                     } else {
-                        holder.saveRoomButton.setVisibility(View.VISIBLE); // Show button otherwise
+                        holder.saveRoomButton.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -122,11 +122,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                     Log.d("RoomAdapter", "Image loaded successfully with BitmapFactory.");
                 } else {
                     Log.e("RoomAdapter", "Failed to load image with BitmapFactory.");
-                    holder.roomImage.setImageResource(R.drawable.placeholder_image); // Fallback image
+                    holder.roomImage.setImageResource(R.drawable.placeholder_image);
                 }
             } catch (Exception e) {
                 Log.e("RoomAdapter", "Error loading image: " + e.getMessage(), e);
-                holder.roomImage.setImageResource(R.drawable.placeholder_image); // Fallback image
+                holder.roomImage.setImageResource(R.drawable.placeholder_image);
             }
         } else {
             Log.e("RoomAdapter", "Image file does not exist: " + file.getAbsolutePath());
@@ -148,11 +148,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         db.collection("users")
                 .document(userId)
                 .collection("savedRooms")
-                .document(room.getIdRoom()) // Use room ID as document ID
+                .document(room.getIdRoom())
                 .set(room)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(context, "Phòng đã được lưu vào danh sách ưa thích!", Toast.LENGTH_SHORT).show();
-                    saveRoomButton.setVisibility(View.GONE); // Hide button after saving
+                    saveRoomButton.setVisibility(View.GONE);
                 })
                 .addOnFailureListener(e -> {
                     Log.e("RoomAdapter", "Failed to save room", e);

@@ -67,24 +67,21 @@ public class RenterActivity extends AppCompatActivity {
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RenterActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Close current activity
+            finish();
         });
 
-        // Initialize the saved rooms button
         Button btnSavedRooms = findViewById(R.id.btnSavedRooms);
         btnSavedRooms.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, SavedRoomsActivity.class);
             startActivity(intent);
         });
 
-        // Initialize the search room button
         Button btnSearchRoom = findViewById(R.id.btnSearchRoom);
         btnSearchRoom.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, SearchRoomActivity.class);
             startActivity(intent);
         });
 
-        // Initialize the chat list button
         ImageButton btnChatList = findViewById(R.id.btnChatList);
         btnChatList.setOnClickListener(v -> {
             Intent intent = new Intent(RenterActivity.this, ChatListActivity.class);
@@ -98,7 +95,6 @@ public class RenterActivity extends AppCompatActivity {
         roomAdapter = new RoomAdapter(roomList, this);
         recyclerView.setAdapter(roomAdapter);
 
-        // Load room data from Firestore
         loadRooms();
     }
 

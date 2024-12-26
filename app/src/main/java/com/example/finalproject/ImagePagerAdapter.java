@@ -42,7 +42,7 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
             holder.imageView.setImageBitmap(bitmap);
         } else {
             Log.e("ImagePagerAdapter", "Image file does not exist: " + imagePath);
-            holder.imageView.setImageResource(R.drawable.placeholder_image); // Fallback image
+            holder.imageView.setImageResource(R.drawable.placeholder_image);
         }
     }
 

@@ -18,7 +18,7 @@ public class ReviewActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button btnSubmit;
     private Room room;
-    private String currentUserName; // To store the username
+    private String currentUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,8 @@ public class ReviewActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        // Get room details from Intent
         room = (Room) getIntent().getSerializableExtra("room");
 
-        // Fetch the username of the current user
         fetchCurrentUserName();
 
         btnSubmit.setOnClickListener(v -> submitReview());
@@ -46,12 +44,12 @@ public class ReviewActivity extends AppCompatActivity {
         }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users") // Assuming usernames are stored in the "users" collection
+        db.collection("users")
                 .document(currentUserId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        currentUserName = documentSnapshot.getString("name"); // Assume "name" field stores the username
+                        currentUserName = documentSnapshot.getString("name");
                     } else {
                         Toast.makeText(this, "Không thể lấy thông tin người dùng.", Toast.LENGTH_SHORT).show();
                     }
@@ -79,14 +77,13 @@ public class ReviewActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Save the review in Firestore
         db.collection("rooms")
                 .document(room.getIdRoom())
                 .collection("reviews")
                 .add(review)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(this, "Đánh giá của bạn đã được gửi!", Toast.LENGTH_SHORT).show();
-                    finish(); // Go back to the previous screen
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Đã xảy ra lỗi khi gửi đánh giá.", Toast.LENGTH_SHORT).show();

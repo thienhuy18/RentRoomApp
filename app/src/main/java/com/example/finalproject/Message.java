@@ -7,12 +7,11 @@ public class Message {
     private String receiverId;
     private String message;
     private Timestamp timestamp;
-    private String senderName; // Add this field
+    private String senderName;
 
-    // Default constructor (required for Firestore)
+
     public Message() {}
 
-    // Constructor with parameters
     public Message(String senderId, String receiverId, String message, Timestamp timestamp) {
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -20,7 +19,6 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    // Getters and setters
     public String getSenderId() {
         return senderId;
     }

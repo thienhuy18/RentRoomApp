@@ -21,7 +21,7 @@ public class ManageRoomAdapter extends RecyclerView.Adapter<ManageRoomAdapter.Ma
     public interface OnRoomActionListener {
         void onEdit(Room room);
         void onDelete(Room room);
-        void onViewBookingHistory(Room room);  // Add this for the new button action
+        void onViewBookingHistory(Room room);
 
     }
 
@@ -80,7 +80,7 @@ public class ManageRoomAdapter extends RecyclerView.Adapter<ManageRoomAdapter.Ma
             address = itemView.findViewById(R.id.tvAddress);
             btnEditRoom = itemView.findViewById(R.id.btnEditRoom);
             btnDeleteRoom = itemView.findViewById(R.id.btnDeleteRoom);
-            btnViewBookingHistory = itemView.findViewById(R.id.btnSeeRoom);  // New button
+            btnViewBookingHistory = itemView.findViewById(R.id.btnSeeRoom);
 
         }
     }

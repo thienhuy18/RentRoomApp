@@ -9,13 +9,12 @@ public class Deposit implements Serializable {
     private String ownerId;
     private String renterId;
     private double depositAmount;
-    private String status; // PENDING, APPROVED, REFUNDED, CANCELLED
+    private String status;
     private Date createdAt;
     private Date updatedAt;
-    private String paymentMethod; // BANK_TRANSFER, CREDIT_CARD, DIGITAL_WALLET
+    private String paymentMethod;
     private String transactionDetails;
 
-    // Constructors
     public Deposit() {}
 
     public Deposit(String roomId, String ownerId, String renterId, double depositAmount) {
@@ -27,7 +26,6 @@ public class Deposit implements Serializable {
         this.createdAt = new Date();
     }
 
-    // Getters and Setters
     public String getDepositId() {
         return depositId;
     }

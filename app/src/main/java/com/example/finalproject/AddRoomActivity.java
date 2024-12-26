@@ -55,7 +55,7 @@ public class AddRoomActivity extends AppCompatActivity {
     private void selectImages() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // Allow multiple images
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(intent, 100);
     }
 

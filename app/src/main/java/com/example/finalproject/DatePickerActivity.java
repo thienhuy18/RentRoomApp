@@ -28,11 +28,11 @@ import java.util.List;
 public class DatePickerActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private String roomId;
-    private String userId;  // Store user ID
+    private String userId;
     private RecyclerView rvBookedDates;
     private BookedDatesAdapter bookedDatesAdapter;
     private List<String> bookedDatesList;
-    private String roomAddress = "Room Address Placeholder";  // Placeholder, fetch from your database if needed
+    private String roomAddress = "Room Address Placeholder";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +42,9 @@ public class DatePickerActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         roomId = getIntent().getStringExtra("roomId");
 
-        // Get userId from Firebase Authentication (or pass it via Intent)
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Assuming user is logged in
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Initialize RecyclerView and adapter
+
         rvBookedDates = findViewById(R.id.rvBookedDates);
         bookedDatesList = new ArrayList<>();
         bookedDatesAdapter = new BookedDatesAdapter(bookedDatesList);
@@ -53,19 +52,16 @@ public class DatePickerActivity extends AppCompatActivity {
         rvBookedDates.setLayoutManager(new LinearLayoutManager(this));
         rvBookedDates.setAdapter(bookedDatesAdapter);
 
-        // Fetch the booked dates from Firestore
         fetchBookedDates();
 
-        // Check if the user already has a booking for the room
         checkExistingBooking();
 
-        // Set listener for the date pick button
         Button btnPickDate = findViewById(R.id.btnPickDate);
         btnPickDate.setOnClickListener(v -> openDatePicker());
     }
 
     private void fetchBookedDates() {
-        // Fetch booked dates from Firestore
+
         db.collection("rooms")
                 .document(roomId)
                 .collection("bookings")
@@ -74,9 +70,9 @@ public class DatePickerActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         bookedDatesList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            bookedDatesList.add(document.getId());  // Add the document ID as the booked date
+                            bookedDatesList.add(document.getId());
                         }
-                        bookedDatesAdapter.notifyDataSetChanged();  // Notify the adapter to update the UI
+                        bookedDatesAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(DatePickerActivity.this, "Failed to fetch booked dates.", Toast.LENGTH_SHORT).show();
                     }
@@ -84,7 +80,6 @@ public class DatePickerActivity extends AppCompatActivity {
     }
 
     private void checkExistingBooking() {
-        // Check if the user has already booked the room
         db.collection("rooms")
                 .document(roomId)
                 .collection("bookings")
@@ -92,35 +87,30 @@ public class DatePickerActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult().size() > 0) {
-                        // Redirect to the booking success page if already booked
                         Intent successIntent = new Intent(DatePickerActivity.this, BookingSuccessActivity.class);
                         successIntent.putExtra("bookedDate", task.getResult().getDocuments().get(0).getId());
-                        successIntent.putExtra("roomAddress", roomAddress);  // Pass the address
+                        successIntent.putExtra("roomAddress", roomAddress);
                         startActivity(successIntent);
-                        finish();  // Close the current activity
+                        finish();
                     }
                 });
     }
 
     private void openDatePicker() {
-        // Get current date
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Open DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
             String selectedDate = formatDate(selectedYear, selectedMonth, selectedDay);
 
-            // Check if the room is already booked on the selected date
             if (bookedDatesList.contains(selectedDate)) {
                 Toast.makeText(DatePickerActivity.this, "This date is already booked!", Toast.LENGTH_SHORT).show();
             } else {
-                // If the date is free, proceed to book the room
                 bookRoom(selectedDate);
             }
-        }, year, month, day); // Default date
+        }, year, month, day);
 
         datePickerDialog.show();
     }
@@ -134,21 +124,20 @@ public class DatePickerActivity extends AppCompatActivity {
 
     private void bookRoom(String selectedDate) {
         HashMap<String, Object> bookingData = new HashMap<>();
-        bookingData.put("userID", userId);  // Add userID to the booking data
+        bookingData.put("userID", userId);
 
         // Add booking to Firestore
         db.collection("rooms")
                 .document(roomId)
                 .collection("bookings")
                 .document(selectedDate)
-                .set(bookingData) // Book the room by saving a document with the selected date and userID
+                .set(bookingData)
                 .addOnSuccessListener(aVoid -> {
-                    // Redirect to the success page after booking
                     Intent successIntent = new Intent(DatePickerActivity.this, BookingSuccessActivity.class);
                     successIntent.putExtra("bookedDate", selectedDate);
-                    successIntent.putExtra("roomAddress", roomAddress);  // Pass the address
+                    successIntent.putExtra("roomAddress", roomAddress);
                     startActivity(successIntent);
-                    finish();  // Close the current activity
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(DatePickerActivity.this, "Failed to book the room.", Toast.LENGTH_SHORT).show();

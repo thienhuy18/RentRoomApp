@@ -51,15 +51,13 @@ public class HostActivity extends AppCompatActivity {
 
         Button btnPostRoom = findViewById(R.id.btnPostRoom);
         btnPostRoom.setOnClickListener(v -> {
-            // Khi nhấn nút, chuyển sang màn hình đăng tin cho thuê phòng
-            Intent intent = new Intent(HostActivity.this, AddRoomActivity.class);  // Đến màn hình đăng phòng
+            Intent intent = new Intent(HostActivity.this, AddRoomActivity.class);
             startActivity(intent);
         });
 
-        Button btnManageRooms = findViewById(R.id.btnManageRooms);  // Button quản lý các phòng đã đăng
+        Button btnManageRooms = findViewById(R.id.btnManageRooms);
         btnManageRooms.setOnClickListener(v -> {
-            // Chuyển đến màn hình quản lý phòng
-            Intent intent = new Intent(HostActivity.this, ManageRoomsActivity.class);  // Màn hình quản lý các phòng
+            Intent intent = new Intent(HostActivity.this, ManageRoomsActivity.class);
             startActivity(intent);
         });
 

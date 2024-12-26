@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- Owner's Name -->
     <TextView
         android:id="@+id/tvOwnerName"
         android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
         android:textStyle="bold"
         android:textColor="#000000" />
 
-    <!-- Last Message -->
     <TextView
         android:id="@+id/tvLastMessage"
         android:layout_width="wrap_content"

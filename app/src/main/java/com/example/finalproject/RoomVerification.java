@@ -8,13 +8,13 @@ public class RoomVerification implements Serializable {
     private String roomId;
     private String ownerId;
     private String renterId;
-    private String status; // PENDING, APPROVED, REJECTED
+    private String status;
     private String ownerVerificationDetails;
     private String renterVerificationDetails;
     private Date createdAt;
     private Date updatedAt;
 
-    // Constructors
+
     public RoomVerification() {}
 
     public RoomVerification(String roomId, String ownerId, String renterId) {
@@ -25,7 +25,6 @@ public class RoomVerification implements Serializable {
         this.createdAt = new Date();
     }
 
-    // Getters and Setters
     public String getVerificationId() {
         return verificationId;
     }

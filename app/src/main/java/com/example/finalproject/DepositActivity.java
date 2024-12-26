@@ -39,21 +39,17 @@ public class DepositActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        // Retrieve the room from intent
         room = (Room) getIntent().getSerializableExtra("room");
 
-        // Initialize views
         tvRoomName = findViewById(R.id.tvRoomName);
         tvDepositAmount = findViewById(R.id.tvDepositAmount);
         etTransactionDetails = findViewById(R.id.etTransactionDetails);
         spinnerPaymentMethod = findViewById(R.id.spinnerPaymentMethod);
         btnSubmitDeposit = findViewById(R.id.btnSubmitDeposit);
 
-        // Set room name and calculate deposit amount (e.g., 1 month's rent)
         if (room != null) {
             tvRoomName.setText(room.getRoomName());
 
-            // Parse price and calculate deposit (assuming price is a string with $ sign)
             try {
                 double monthlyRent = Double.parseDouble(room.getPrice().replace("$", "").trim());
                 tvDepositAmount.setText(String.format("$%.2f", monthlyRent));
@@ -62,10 +58,8 @@ public class DepositActivity extends AppCompatActivity {
             }
         }
 
-        // Setup payment method spinner
         setupPaymentMethodSpinner();
 
-        // Submit deposit button
         btnSubmitDeposit.setOnClickListener(v -> submitDeposit());
     }
 
@@ -93,7 +87,6 @@ public class DepositActivity extends AppCompatActivity {
     }
 
     private void submitDeposit() {
-        // Validate input
         String transactionDetails = etTransactionDetails.getText().toString().trim();
 
         if (selectedPaymentMethod == null) {
@@ -106,7 +99,6 @@ public class DepositActivity extends AppCompatActivity {
             return;
         }
 
-        // Create deposit object
         try {
             double depositAmount = Double.parseDouble(room.getPrice().replace("$", "").trim());
 
@@ -120,7 +112,6 @@ public class DepositActivity extends AppCompatActivity {
             depositData.put("paymentMethod", selectedPaymentMethod);
             depositData.put("transactionDetails", transactionDetails);
 
-            // Save deposit to Firestore
             db.collection("deposits")
                     .add(depositData)
                     .addOnSuccessListener(documentReference -> {

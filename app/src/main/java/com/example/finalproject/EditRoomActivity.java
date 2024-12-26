@@ -19,11 +19,11 @@ import java.util.List;
 public class EditRoomActivity extends AppCompatActivity {
     private EditText etRoomName, etPrice, etAddress, etDescription, etAmenities;
     private Button btnUpdateRoom, btnSelectImages;
-    private List<Uri> imageUris = new ArrayList<>(); // Updated images
+    private List<Uri> imageUris = new ArrayList<>();
     private FirebaseFirestore db;
 
     private String roomId;
-    private Room currentRoom; // Store the current room's details
+    private Room currentRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,6 @@ public class EditRoomActivity extends AppCompatActivity {
         btnUpdateRoom = findViewById(R.id.btnUpdateRoom);
         btnSelectImages = findViewById(R.id.btnSelectImages);
 
-        // Get room ID passed from the previous activity
         roomId = getIntent().getStringExtra("ROOM_ID");
 
         if (roomId != null) {
@@ -71,7 +70,6 @@ public class EditRoomActivity extends AppCompatActivity {
         etDescription.setText(room.getDescription());
         etAmenities.setText(String.join(", ", room.getAmenities()));
 
-        // Optional: You can display existing images using an ImageView or RecyclerView
     }
 
     private void selectImages() {
@@ -132,8 +130,8 @@ public class EditRoomActivity extends AppCompatActivity {
 
             db.collection("rooms").document(roomId).set(currentRoom)
                     .addOnSuccessListener(aVoid -> {
-                        setResult(RESULT_OK); // Trả kết quả thành công
-                        finish(); // Quay lại màn hình trước
+                        setResult(RESULT_OK);
+                        finish();
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Lỗi cập nhật thông tin phòng", Toast.LENGTH_SHORT).show();

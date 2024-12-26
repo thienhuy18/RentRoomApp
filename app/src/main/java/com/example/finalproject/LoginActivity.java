@@ -91,12 +91,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToRoleActivity(String role) {
         if ("Chủ Nhà".equals(role)) {
-            // Chuyển đến màn hình cho thuê phòng (HostActivity)
             Intent intent = new Intent(this, HostActivity.class);
             startActivity(intent);
-            finish();  // Dừng Activity đăng nhập hiện tại
+            finish();
         } else if ("Người Thuê".equals(role)) {
-            // Chuyển đến màn hình tìm kiếm phòng (RenterActivity)
             Intent intent = new Intent(this, RenterActivity.class);
             startActivity(intent);
             finish();

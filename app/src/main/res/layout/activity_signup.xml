@@ -106,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_background"
+            android:textColor="@android:color/white"
             android:text="Đăng Ký"/>
     </LinearLayout>
 </LinearLayout>

@@ -38,29 +38,25 @@ public class SearchRoomActivity extends AppCompatActivity {
 
         rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
 
-        roomAdapter = new RoomAdapter(new ArrayList<>(), this); // Pass context to adapter
+        roomAdapter = new RoomAdapter(new ArrayList<>(), this);
         rvSearchResults.setAdapter(roomAdapter);
 
         btnSearch.setOnClickListener(v -> searchRooms());
     }
 
     private void searchRooms() {
-        // Lấy các giá trị tìm kiếm từ EditText
         String location = etSearchLocation.getText().toString().trim();
         String price = etSearchPrice.getText().toString().trim();
         String area = etSearchArea.getText().toString().trim();
         String amenities = etSearchAmenities.getText().toString().trim();
 
-        // Kiểm tra nếu không có thông tin tìm kiếm
         if (location.isEmpty() && price.isEmpty() && area.isEmpty() && amenities.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập ít nhất một tiêu chí tìm kiếm", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Tạo truy vấn Firestore
         Query query = db.collection("rooms");
 
-        // Thêm điều kiện lọc cho các trường không rỗng
         if (!location.isEmpty()) {
             query = query.whereEqualTo("address", location);
         }
@@ -71,10 +67,9 @@ public class SearchRoomActivity extends AppCompatActivity {
             query = query.whereEqualTo("area", area);
         }
         if (!amenities.isEmpty()) {
-            query = query.whereArrayContains("amenities", amenities);  // Giả sử tiện ích được lưu dưới dạng mảng
+            query = query.whereArrayContains("amenities", amenities);
         }
 
-        // Thực hiện truy vấn Firestore
         query.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<Room> roomList = new ArrayList<>();
@@ -84,7 +79,7 @@ public class SearchRoomActivity extends AppCompatActivity {
                             roomList.add(room);
                         }
                     }
-                    roomAdapter.setRoomList(roomList); // Cập nhật danh sách phòng cho Adapter
+                    roomAdapter.setRoomList(roomList);
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Lỗi tìm kiếm phòng", Toast.LENGTH_SHORT).show());
     }

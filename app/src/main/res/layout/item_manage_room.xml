@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <!-- Tên phòng -->
         <TextView
             android:id="@+id/tvRoomName"
             android:layout_width="wrap_content"
@@ -20,7 +19,6 @@
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
 
-        <!-- Giá phòng -->
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
@@ -28,7 +26,6 @@
             android:textSize="14sp"
             android:layout_marginTop="4dp"/>
 
-        <!-- Địa chỉ phòng -->
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
@@ -36,7 +33,6 @@
             android:textSize="12sp"
             android:layout_marginTop="4dp"/>
 
-        <!-- Nút Sửa và Xóa -->
         <Button
             android:id="@+id/btnSeeRoom"
             android:layout_width="match_parent"

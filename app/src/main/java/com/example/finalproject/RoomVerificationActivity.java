@@ -49,7 +49,6 @@ public class RoomVerificationActivity extends AppCompatActivity {
     private void initializeVerificationProcess() {
         String currentUserId = mAuth.getCurrentUser().getUid();
 
-        // Nếu người dùng là chủ nhà
         if (currentUserId.equals(room.getUserId())) {
             setupOwnerView();
         } else {

@@ -35,7 +35,7 @@ public class SavedRoomsAdapter extends RecyclerView.Adapter<SavedRoomsAdapter.Sa
     @Override
     public SavedRoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_saved_room, parent, false); // New layout
+                .inflate(R.layout.item_saved_room, parent, false);
         return new SavedRoomViewHolder(itemView);
     }
 

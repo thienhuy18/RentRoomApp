@@ -34,7 +34,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.tvReviewText.setText(review.getComment());
         holder.ratingBar.setRating(review.getRating());
 
-        // Format and set the timestamp to the TextView
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         String formattedDate = sdf.format(new Date(review.getTimestamp()));
         holder.tvReviewTime.setText(formattedDate);

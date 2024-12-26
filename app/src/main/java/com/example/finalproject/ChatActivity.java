@@ -178,7 +178,7 @@ public class ChatActivity extends AppCompatActivity {
         messagesRef.add(message)
                 .addOnSuccessListener(documentReference -> {
                     Log.d("ChatActivity", "Message sent successfully!");
-                    etMessageInput.setText("");  // Clear input field
+                    etMessageInput.setText("");
                 })
                 .addOnFailureListener(e -> {
                     Log.e("ChatActivity", "Error sending message", e);

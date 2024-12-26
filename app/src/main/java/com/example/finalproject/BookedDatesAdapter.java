@@ -18,7 +18,6 @@ public class BookedDatesAdapter extends RecyclerView.Adapter<BookedDatesAdapter.
 
     @Override
     public BookedDateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Use a simple TextView layout for each item in the list
         View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
         return new BookedDateViewHolder(view);
     }
@@ -26,7 +25,7 @@ public class BookedDatesAdapter extends RecyclerView.Adapter<BookedDatesAdapter.
     @Override
     public void onBindViewHolder(BookedDateViewHolder holder, int position) {
         String bookedDate = bookedDatesList.get(position);
-        holder.dateTextView.setText(bookedDate);  // Set the booked date to the TextView
+        holder.dateTextView.setText(bookedDate);
     }
 
     @Override
@@ -34,7 +33,6 @@ public class BookedDatesAdapter extends RecyclerView.Adapter<BookedDatesAdapter.
         return bookedDatesList.size();
     }
 
-    // ViewHolder for displaying booked dates
     static class BookedDateViewHolder extends RecyclerView.ViewHolder {
         TextView dateTextView;
 

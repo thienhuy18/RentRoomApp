@@ -39,7 +39,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         manageRoomAdapter = new ManageRoomAdapter(roomList, this, new ManageRoomAdapter.OnRoomActionListener() {
             @Override
             public void onEdit(Room room) {
-                // Chỉnh sửa phòng
+
                 Intent editIntent = new Intent(ManageRoomsActivity.this, EditRoomActivity.class);
                 editIntent.putExtra("ROOM_ID", room.getIdRoom());
                 startActivityForResult(editIntent, 1001);
@@ -47,13 +47,12 @@ public class ManageRoomsActivity extends AppCompatActivity {
             @Override
             public void onViewBookingHistory(Room room) {
                 Intent intent = new Intent(ManageRoomsActivity.this, BookingHistoryActivity.class);
-                intent.putExtra("roomId", room.getIdRoom());  // Pass the roomId to the BookingHistoryActivity
+                intent.putExtra("roomId", room.getIdRoom());
                 startActivity(intent);
             }
 
             @Override
             public void onDelete(Room room) {
-                // Xóa phòng
                 deleteRoom(room);
             }
         });
@@ -64,7 +63,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         Button btnAddRoom = findViewById(R.id.btnAddRoom);
         btnAddRoom.setOnClickListener(v -> {
             Intent intent = new Intent(ManageRoomsActivity.this, AddRoomActivity.class);
-            startActivityForResult(intent, 1001); // Gọi AddRoomActivity và yêu cầu trả lại kết quả
+            startActivityForResult(intent, 1001);
         });
 
     }

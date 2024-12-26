@@ -102,10 +102,8 @@ public class RoomDetailsActivity extends AppCompatActivity {
             ImagePagerAdapter adapter = new ImagePagerAdapter(imageUrls, this);
             viewPagerImages.setAdapter(adapter);
 
-            // Update image counter
             tvImageCounter.setText("1/" + imageUrls.size());
 
-            // ViewPager2 Page Change Listener
             viewPagerImages.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                 @Override
                 public void onPageSelected(int position) {
@@ -129,7 +127,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
             Button btnReviewAndComment = findViewById(R.id.btnReviewAndComment);
             btnReviewAndComment.setOnClickListener(v -> {
                 Intent intent = new Intent(RoomDetailsActivity.this, ReviewActivity.class);
-                intent.putExtra("room", room);  // Gửi thông tin phòng tới Activity Review
+                intent.putExtra("room", room);
                 startActivity(intent);
             });
 
@@ -169,7 +167,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
         }
 
         db.collection("users")
-                .whereEqualTo("name", ownerName) // Assuming 'name' is the field for the user's name
+                .whereEqualTo("name", ownerName)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
@@ -206,7 +204,7 @@ public class RoomDetailsActivity extends AppCompatActivity {
         db.collection("rooms")
                 .document(roomId)
                 .collection("reviews")
-                .orderBy("timestamp", Query.Direction.DESCENDING) // Order reviews by most recent
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     if (querySnapshot.isEmpty()) {
