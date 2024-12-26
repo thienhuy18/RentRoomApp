@@ -46,7 +46,6 @@ public class ManageRoomsActivity extends AppCompatActivity {
             }
             @Override
             public void onViewBookingHistory(Room room) {
-                // Open BookingHistoryActivity when the "View Booking History" button is clicked
                 Intent intent = new Intent(ManageRoomsActivity.this, BookingHistoryActivity.class);
                 intent.putExtra("roomId", room.getIdRoom());  // Pass the roomId to the BookingHistoryActivity
                 startActivity(intent);
